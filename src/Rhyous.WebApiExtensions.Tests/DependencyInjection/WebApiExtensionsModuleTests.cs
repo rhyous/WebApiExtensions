@@ -40,6 +40,8 @@ public class WebApiExtensionsModuleTests
         _services.AddOptions();
         _mockHttpContextAccessor = _mockRepository.Create<IHttpContextAccessor>();
         _services.AddScoped<IHttpContextAccessor>((c) => _mockHttpContextAccessor.Object);
+        _mockHttpContextAccessor.Setup(x => x.HttpContext)
+                        .Returns(() => _testHttpContextFactory.Create());
 
         _TelemetryClient = new TelemetryClient(new TelemetryConfiguration());
         _services.AddSingleton<TelemetryClient>(_TelemetryClient);
@@ -177,10 +179,6 @@ public class WebApiExtensionsModuleTests
 
     private void AssertScoped<T>() where T : class
     {
-
-        _mockHttpContextAccessor.Setup(x => x.HttpContext)
-                                .Returns(() => _testHttpContextFactory.Create());
-
         var scope1 = _serviceProvider.CreateScope();
         var instance1 = scope1.ServiceProvider.GetService<T>();
         var scope2 = _serviceProvider.CreateScope();
