@@ -9,6 +9,15 @@
 
   <PropertyGroup>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Description>A project with comment code for a WebApi project.</Description>
+    <Copyright>Rhyous Publishing LLC 2025</Copyright>
+    <PackageProjectUrl>https://github.com/rhyous/WebApiExtensions</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/rhyous/WebApiExtensions</RepositoryUrl>
+    <PackageTags>WebApi</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,4 +25,17 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
+
+  <!-- NuGet Package -->
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
 </Project>
