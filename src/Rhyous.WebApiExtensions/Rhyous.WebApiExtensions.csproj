@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Description>A project with comment code for a WebApi project.</Description>
+    <Copyright>Rhyous Publishing LLC 2025</Copyright>
+    <PackageProjectUrl>https://github.com/rhyous/WebApiExtensions</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/rhyous/WebApiExtensions</RepositoryUrl>
+    <PackageTags>WebApi</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Rhyous.WebApiExtensions.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.6" />
+  </ItemGroup>
+
+  <!-- NuGet Package -->
+  <ItemGroup>
+    <ProjectReference Include="..\Rhyous.WebApiExtensions.Interfaces\Rhyous.WebApiExtensions.Interfaces.csproj" />
+    <None Include="..\Rhyous.WebApiExtensions.Interfaces\bin\$(Configuration)\net9.0\Rhyous.WebApiExtensions.Interfaces.dll">
+      <Pack>True</Pack>
+      <PackagePath>lib\net9.0\</PackagePath>
+      <Visible>false</Visible>
+    </None>
+    <None Include="..\Rhyous.WebApiExtensions.Interfaces\bin\$(Configuration)\net9.0\Rhyous.WebApiExtensions.Interfaces.xml">
+      <Pack>True</Pack>
+      <PackagePath>lib\net9.0\</PackagePath>
+      <Visible>false</Visible>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

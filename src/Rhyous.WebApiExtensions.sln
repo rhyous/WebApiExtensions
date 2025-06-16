@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhyous.WebApiExtensions", "Rhyous.WebApiExtensions\Rhyous.WebApiExtensions.csproj", "{4D0B69C0-5EA6-4DCE-8C93-0BF44AE6E916}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhyous.WebApiExtensions.Interfaces", "Rhyous.WebApiExtensions.Interfaces\Rhyous.WebApiExtensions.Interfaces.csproj", "{A0EFB2C3-9FF6-43CC-AD0B-DF688B90C32A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhyous.WebApiExtensions.Tests", "Rhyous.WebApiExtensions.Tests\Rhyous.WebApiExtensions.Tests.csproj", "{0C0166C6-BFA2-438E-8296-F2FCC57ECD09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D0B69C0-5EA6-4DCE-8C93-0BF44AE6E916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0B69C0-5EA6-4DCE-8C93-0BF44AE6E916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0B69C0-5EA6-4DCE-8C93-0BF44AE6E916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0B69C0-5EA6-4DCE-8C93-0BF44AE6E916}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0EFB2C3-9FF6-43CC-AD0B-DF688B90C32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0EFB2C3-9FF6-43CC-AD0B-DF688B90C32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0EFB2C3-9FF6-43CC-AD0B-DF688B90C32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0EFB2C3-9FF6-43CC-AD0B-DF688B90C32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C0166C6-BFA2-438E-8296-F2FCC57ECD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C0166C6-BFA2-438E-8296-F2FCC57ECD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C0166C6-BFA2-438E-8296-F2FCC57ECD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C0166C6-BFA2-438E-8296-F2FCC57ECD09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
