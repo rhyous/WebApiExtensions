@@ -4,9 +4,9 @@ name: CI - Main
  
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events to the "master" or "vNext" branches
+  # Triggers the workflow on push events to the "main" branches
   push:
-    branches: [ "master", "vNext" ]
+    branches: [ "main" ]
     paths-ignore:
       - '**.md'
       - '**.yml'
