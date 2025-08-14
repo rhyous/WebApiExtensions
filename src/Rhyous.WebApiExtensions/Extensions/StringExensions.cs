@@ -17,4 +17,17 @@ public static class StringExensions
         var port = hostParts.Length == 2 ? Convert.ToInt32(hostParts[1]) : -1;
         return new(forwarded, proto, host, port);
     }
+
+#if NETSTANDARD2_0
+    /// <summary>Splits a string into an array of substrings based on the specified separator character.</summary>
+    /// <param name="s">The string.</param>
+    /// <param name="separator">The separator character to split by.</param>
+    /// <param name="options">The <see cref="StringSplitOptions"/>.</param>
+    /// <returns>An array of split strings.</returns>
+    /// <remarks>This is a shim for netstandard2.0.</remarks>
+    internal static string[] Split(this string s, char separator, StringSplitOptions options = StringSplitOptions.None)
+    {
+        return s.Split([separator], options);
+    }
+#endif
 }
