@@ -106,18 +106,6 @@ public class WebApiExtensionsModuleTests
     }
 
     [TestMethod]
-    public void WebApiExtensionsModule_Register_IHttpResponse_Scoped()
-    {
-        AssertScoped<IHttpResponse>();
-    }
-
-    [TestMethod]
-    public void WebApiExtensionsModule_Register_IResponseHeaders_Scoped()
-    {
-        AssertScoped<IResponseHeaders>();
-    }
-
-    [TestMethod]
     public void WebApiExtensionsModule_Register_IRequestUrlFactory_Scoped()
     {
         AssertScoped<IRequestUrlFactory>();
@@ -145,6 +133,24 @@ public class WebApiExtensionsModuleTests
     public void WebApiExtensionsModule_Register_IForwardedHost_Scoped()
     {
         AssertScoped<IForwardedHost>();
+    }
+
+    [TestMethod]
+    public void WebApiExtensionsModule_Register_IHttpResponse_Scoped()
+    {
+        AssertScoped<IHttpResponse>();
+    }
+
+    [TestMethod]
+    public void WebApiExtensionsModule_Register_IResponseHeaders_Scoped()
+    {
+        AssertScoped<IResponseHeaders>();
+    }
+
+    [TestMethod]
+    public void WebApiExtensionsModule_Register_IResponseCookies_Scoped()
+    {
+        AssertScoped<IResponseCookies>();
     }
     #endregion
 

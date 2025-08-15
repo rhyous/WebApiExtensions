@@ -40,16 +40,21 @@ public class WebApiExtensionsModule : IDependencyInjectionModule
         {
             return new HttpRequestWrapper(scope.GetService<HttpContext>()!.Request);
         });
+        // Request
         services.AddScoped<IRequestCookies>(scope => new RequestCookies { Cookies = scope.GetService<IHttpRequest>()!.Cookies });
+        // Both request and response use the same inteface so a wrapper is needed.
         services.AddScoped<IRequestHeaders>(scope => new RequestHeaders { Headers = scope.GetService<IHttpRequest>()!.Headers });
         services.AddScoped<IUrlParameters>(scope => new UrlParameters { Collection = scope.GetService<IHttpRequest>()!.Query });
-        services.AddScoped<IHttpResponse>(scope => new HttpResponseWrapper(scope.GetService<HttpContext>()!.Response));
-        services.AddScoped<IResponseHeaders>(scope => new ResponseHeaders { Headers = scope.GetService<IHttpResponse>()!.Headers });
         services.AddScoped<IRequestUrlFactory, RequestUrlFactory>();
         services.AddScoped<IRequestUrl>(scope => scope.GetService<IRequestUrlFactory>()!.Create());
         services.AddScoped<IForwardedHostFactory, ForwardedHostFactory>();
         services.AddScoped<IForwardedHost>(scope => scope.GetService<IForwardedHostFactory>()!.Create());
         services.AddScoped<IReferer>(scope => new Referer(scope.GetService<IRequestHeaders>()!.Headers![nameof(Referer)]!));
+        // Response
+        services.AddScoped<IHttpResponse>(scope => new HttpResponseWrapper(scope.GetService<HttpContext>()!.Response));
+        // Both request and response use the same inteface so a wrapper is needed.
+        services.AddScoped<IResponseHeaders>(scope => new ResponseHeaders { Headers = scope.GetService<IHttpResponse>()!.Headers });
+        services.AddScoped<IResponseCookies>(scope => scope.GetService<IHttpResponse>()!.Cookies); // No wrapper needed as IResponseCookies is already an interface
 
         // Other Wrappers
         services.AddSingleton<IDateTimeOffset, DateTimeOffsetWrapper>();
