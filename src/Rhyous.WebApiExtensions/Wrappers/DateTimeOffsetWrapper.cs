@@ -9,4 +9,6 @@ public class DateTimeOffsetWrapper : IDateTimeOffset
 {
     /// <summary>Gets the current date and time.</summary>
     public DateTimeOffset Now => DateTimeOffset.Now;
+    /// <summary>Gets the current date and time.</summary>
+    public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
 }
