@@ -50,6 +50,10 @@ public class WebApiExtensionsModule : IDependencyInjectionModule
         services.AddScoped<IForwardedHostFactory, ForwardedHostFactory>();
         services.AddScoped<IForwardedHost>(scope => scope.GetService<IForwardedHostFactory>()!.Create());
         services.AddScoped<IReferer>(scope => new Referer(scope.GetService<IRequestHeaders>()!.Headers![nameof(Referer)]!));
+
+        // Current Scope Object Factory
+        services.AddScoped(typeof(ICurrentScopeObjectFactory<>), typeof(CurrentScopeObjectFactory<>));
+
         // Response
         services.AddScoped<IHttpResponse>(scope => new HttpResponseWrapper(scope.GetService<HttpContext>()!.Response));
         // Both request and response use the same inteface so a wrapper is needed.
