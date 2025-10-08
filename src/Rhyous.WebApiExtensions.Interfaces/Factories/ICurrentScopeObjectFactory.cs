@@ -12,16 +12,16 @@ namespace Rhyous.WebApiExtensions.Interfaces;
 public interface ICurrentScopeObjectFactory<T> where T : class
 {
 
-    /// <summary>Resolves an instance of T from the current scope.</summary>
+    /// <summary>Creates an instance of T from the current scope.</summary>
     /// <returns>An instance of T from the current scope.</returns>
-    T Resolve();
+    T Create();
 
-    /// <summary>Resolves an instance of a child type of T from the current scope.</summary>
+    /// <summary>Creates an instance of a child type of T from the current scope.</summary>
     /// <param name="childType">The child type of T to resolve. Must be a subclass of T.</param>
     /// <returns>An instance of TChild from the current scope.</returns>
-    T Resolve(Type childType);
-    /// <summary>Resolves an instance of a child type of T from the current scope.</summary>
+    T Create(Type childType);
+    /// <summary>Creates an instance of a child type of T from the current scope.</summary>
     /// <typeparam name="TChild">The child type of T to resolve. Must be a subclass of T.</typeparam>
     /// <returns>An instance of TChild from the current scope.</returns>
-    T Resolve<TChild>() where TChild : T;
+    T Create<TChild>() where TChild : T;
 }
