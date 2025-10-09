@@ -25,13 +25,32 @@ public class CurrentScopeObjectFactory<T> : ICurrentScopeObjectFactory<T>
     /// <returns>An instance of T from the current scope.</returns>
     public T Create() => _scope.GetRequiredService<T>();
 
+
+
+    /// <summary>Uses DI to create or resolve an instance of T from the current scope.</summary>
+    /// <param name="key">An key to resolve a keyed service. If your DI container does not support keyed services, this parameter is ignored. Null is a valid key different than a registration that is not keyed.</param>
+    /// <returns>An instance of T from the current scope.</returns>
+    public T Create(object? key) => _scope.GetRequiredKeyedService<T>(key);
+
     /// <summary>Uses DI to create or resolve an instance of a child type of T from the current scope.</summary>
     /// <param name="childType">The child type of T to resolve. Must be a subclass of T.</param>
     /// <returns>An instance of TChild from the current scope.</returns>
     public T Create(Type childType) => _scope.GetRequiredService(childType) as T ?? throw new ArgumentException($"The type {childType.Name} must inherit {typeof(T).Name}.", nameof(childType));
 
     /// <summary>Uses DI to create or resolve an instance of a child type of T from the current scope.</summary>
+    /// <param name="childType">The child type of T to resolve. Must be a subclass of T.</param>
+    /// <param name="key">An key to resolve a keyed service. If your DI container does not support keyed services, this parameter is ignored. Null is a valid key different than a registration that is not keyed.</param>
+    /// <returns>An instance of TChild from the current scope.</returns>
+    public T Create(Type childType, object? key) => _scope.GetRequiredKeyedService(childType, key) as T ?? throw new ArgumentException($"The type {childType.Name} must inherit {typeof(T).Name}.", nameof(childType));
+
+    /// <summary>Uses DI to create or resolve an instance of a child type of T from the current scope.</summary>
     /// <typeparam name="TChild">The child type of T to resolve. Must be a subclass of T.</typeparam>
     /// <returns>An instance of TChild from the current scope.</returns>
     public T Create<TChild>() where TChild : T => _scope.GetRequiredService<TChild>();
+
+    /// <summary>Uses DI to create or resolve an instance of a child type of T from the current scope.</summary>
+    /// <typeparam name="TChild">The child type of T to resolve. Must be a subclass of T.</typeparam>
+    /// <param name="key">An key to resolve a keyed service. If your DI container does not support keyed services, this parameter is ignored. Null is a valid key different than a registration that is not keyed.</param>
+    /// <returns>An instance of TChild from the current scope.</returns>
+    public T Create<TChild>(object? key) where TChild : T => _scope.GetRequiredKeyedService<TChild>(key);
 }
