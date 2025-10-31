@@ -74,11 +74,25 @@ public class WebApiExtensionsModuleTests
     }
     #endregion
 
+    #region Factories
+    [TestMethod]
+    public void WebApiExtensionsModule_Register_ICurrentScopeObjectFactory_Scoped()
+    {
+        AssertScoped<ICurrentScopeObjectFactory<IHttpContext>>();
+    }
+    #endregion
+
     #region Http
     [TestMethod]
     public void WebApiExtensionsModule_Register_HttpContext_Scoped()
     {
         AssertScoped<HttpContext>();
+    }
+
+    [TestMethod]
+    public void WebApiExtensionsModule_Register_IHttpContext_Scoped()
+    {
+        AssertScoped<IHttpContext>();
     }
 
     [TestMethod]

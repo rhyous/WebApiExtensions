@@ -4,7 +4,7 @@ using Rhyous.WebApiExtensions.Interfaces;
 
 namespace Rhyous.WebApiExtensions;
 
-/// <summary>Wrapper class for HttpResponse.</summary>
+/// <summary>Wrapper class for <see cref="HttpResponse"/>.</summary>
 [ExcludeFromCodeCoverage]
 public class HttpResponseWrapper : IHttpResponse
 {
@@ -17,58 +17,51 @@ public class HttpResponseWrapper : IHttpResponse
         _HttpResponse = httpResponse;
     }
 
-    /// <summary>Gets the HttpContext associated with the response.</summary>
+    /// <inheritdoc />
+    public HttpResponse Instance => _HttpResponse;
+
+    /// <inheritdoc />
     public HttpContext HttpContext => _HttpResponse.HttpContext;
 
-    /// <summary>Gets or sets the status code of the response.</summary>
+    /// <inheritdoc />
     public int StatusCode { get => _HttpResponse.StatusCode; set => _HttpResponse.StatusCode = value; }
 
-    /// <summary>Gets the headers of the response.</summary>
+    /// <inheritdoc />
     public IHeaderDictionary Headers => _HttpResponse.Headers;
 
-    /// <summary>Gets or sets the body stream of the response.</summary>
+    /// <inheritdoc />
     public Stream Body { get => _HttpResponse.Body; set => _HttpResponse.Body = value; }
 
-    /// <summary>Gets or sets the content length of the response.</summary>
+    /// <inheritdoc />
     public long? ContentLength { get => _HttpResponse.ContentLength; set => _HttpResponse.ContentLength = value; }
 
-    /// <summary>Gets or sets the content type of the response.</summary>
+    /// <inheritdoc />
     public string? ContentType { get => _HttpResponse.ContentType; set => _HttpResponse.ContentType = value; }
 
-    /// <summary>Gets the response cookies.</summary>
+    /// <inheritdoc />
     public IResponseCookies Cookies => _HttpResponse.Cookies;
 
-    /// <summary>Gets a value indicating whether the response has started.</summary>
+    /// <inheritdoc />
     public bool HasStarted => _HttpResponse.HasStarted;
 
-    /// <summary>Registers a callback to be invoked when the response is completed.</summary>
-    /// <param name="callback">The callback method to be invoked.</param>
-    /// <param name="state">The state object to be passed to the callback method.</param>
+    /// <inheritdoc />
     public void OnCompleted(Func<object, Task> callback, object state) => _HttpResponse.OnCompleted(callback, state);
 
-    /// <summary>Registers a callback to be invoked when the response is completed.</summary>
-    /// <param name="callback">The callback method to be invoked.</param>
+    /// <inheritdoc />
     public void OnCompleted(Func<Task> callback) => _HttpResponse.OnCompleted(callback);
 
-    /// <summary>Registers a callback to be invoked when the response is starting.</summary>
-    /// <param name="callback">The callback method to be invoked.</param>
-    /// <param name="state">The state object to be passed to the callback method.</param>
+    /// <inheritdoc />
     public void OnStarting(Func<object, Task> callback, object state) => _HttpResponse.OnStarting(callback, state);
 
-    /// <summary>Registers a callback to be invoked when the response is starting.</summary>
-    /// <param name="callback">The callback method to be invoked.</param>
+    /// <inheritdoc />
     public void OnStarting(Func<Task> callback) => _HttpResponse.OnStarting(callback);
 
-    /// <summary>Redirects the response to the specified location.</summary>
-    /// <param name="location">The URL to redirect to.</param>
+    /// <inheritdoc />
     public void Redirect(string location) => _HttpResponse.Redirect(location);
 
-    /// <summary>Redirects the response to the specified location.</summary>
-    /// <param name="location">The URL to redirect to.</param>
-    /// <param name="permanent">A flag indicating whether the redirect is permanent.</param>
+    /// <inheritdoc />
     public void Redirect(string location, bool permanent) => _HttpResponse.Redirect(location, permanent);
 
-    /// <summary>Registers an object for disposal.</summary>
-    /// <param name="disposable">The object to be disposed.</param>
+    /// <inheritdoc />
     public void RegisterForDispose(IDisposable disposable) => _HttpResponse.RegisterForDispose(disposable);
 }

@@ -30,19 +30,16 @@ public class WebApiExtensionsModule : IDependencyInjectionModule
         services.Configure<HostSettings>(_configuration.GetSection(HostSettings.Name));
         services.AddSingleton<IHostSettings>(p => p.GetRequiredService<IOptions<HostSettings>>().Value);
 
+        // Current Scope Object Factory
+        services.AddScoped(typeof(ICurrentScopeObjectFactory<>), typeof(CurrentScopeObjectFactory<>));
 
         // Http
-        services.AddScoped<HttpContext>(scope =>
-        {
-            return scope.GetService<IHttpContextAccessor>()!.HttpContext!;
-        });
-        services.AddScoped<IHttpRequest>(scope =>
-        {
-            return new HttpRequestWrapper(scope.GetService<HttpContext>()!.Request);
-        });
+        services.AddScoped<HttpContext>(scope => scope.GetService<IHttpContextAccessor>()!.HttpContext!);
+        services.AddScoped<IHttpContext>(scope => new HttpContextWrapper(scope.GetService<HttpContext>()!));
+        services.AddScoped<IHttpRequest>(scope => scope.GetService<IHttpContext>()!.Request);
+
         // Request
         services.AddScoped<IRequestCookies>(scope => new RequestCookies { Cookies = scope.GetService<IHttpRequest>()!.Cookies });
-        // Both request and response use the same inteface so a wrapper is needed.
         services.AddScoped<IRequestHeaders>(scope => new RequestHeaders { Headers = scope.GetService<IHttpRequest>()!.Headers });
         services.AddScoped<IUrlParameters>(scope => new UrlParameters { Collection = scope.GetService<IHttpRequest>()!.Query });
         services.AddScoped<IRequestUrlFactory, RequestUrlFactory>();
@@ -51,12 +48,8 @@ public class WebApiExtensionsModule : IDependencyInjectionModule
         services.AddScoped<IForwardedHost>(scope => scope.GetService<IForwardedHostFactory>()!.Create());
         services.AddScoped<IReferer>(scope => new Referer(scope.GetService<IRequestHeaders>()!.Headers![nameof(Referer)]!));
 
-        // Current Scope Object Factory
-        services.AddScoped(typeof(ICurrentScopeObjectFactory<>), typeof(CurrentScopeObjectFactory<>));
-
         // Response
-        services.AddScoped<IHttpResponse>(scope => new HttpResponseWrapper(scope.GetService<HttpContext>()!.Response));
-        // Both request and response use the same inteface so a wrapper is needed.
+        services.AddScoped<IHttpResponse>(scope => scope.GetService<IHttpContext>()!.Response);
         services.AddScoped<IResponseHeaders>(scope => new ResponseHeaders { Headers = scope.GetService<IHttpResponse>()!.Headers });
         services.AddScoped<IResponseCookies>(scope => scope.GetService<IHttpResponse>()!.Cookies); // No wrapper needed as IResponseCookies is already an interface
 
