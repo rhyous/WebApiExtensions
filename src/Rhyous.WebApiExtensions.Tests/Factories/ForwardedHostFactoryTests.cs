@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Primitives;
 using Moq;
 using Rhyous.WebApiExtensions.Factories;
@@ -26,17 +27,17 @@ public class ForwardedHostFactoryTests
         _mockRequestHeaders = _mockRepository.Create<IRequestHeaders>();
     }
 
-    private ForwardedHostFactory CreateFactory()
+    private ForwardedHostFactory CreateFactory(IHttpRequest httpRequest = null)
     {
         return new ForwardedHostFactory(
             _mockHostSettings.Object,
-            _mockHttpRequest.Object,
+            httpRequest ?? _mockHttpRequest.Object,
             _mockRequestHeaders.Object);
     }
 
     #region Create
     [TestMethod]
-    public void ForwardedHostFactory_Create_HostHeaderExistsWithPort_ReturnsForwardedHostWithPort()
+    public void ForwardedHostFactory_Create_XForwardedHostHeaderExistsWithPort_ReturnsForwardedHostWithPort()
     {
         // Arrange
         var factory = CreateFactory();
@@ -62,6 +63,31 @@ public class ForwardedHostFactoryTests
         result.Forwarded.ShouldBe(original, nameof(ForwardedHost.Forwarded));
         result.Host.ShouldBe(host, nameof(ForwardedHost.Host));
         result.Port.ShouldBe(port, nameof(ForwardedHost.Port));
+        _mockRepository.VerifyAll();
+    }
+
+    /// <summary>Test with just the Host header.</summary>
+    /// <remarks>This test uses a real HttpRequest, just so we can make sure HttpRequest.GetDisplayUrl() already takes care of the Host header for us.</remarks>
+    [TestMethod]
+    public void ForwardedHostFactory_Create_HostHeaderExistsWithPort_ReturnsForwardedHostWithPort()
+    {
+        // Arrange
+        var request = new DefaultHttpRequest(new DefaultHttpContext())
+        {
+            Scheme = "https",
+            Host = new HostString("some.domain.tld:5111")
+        };
+        var factory = CreateFactory(new HttpRequestWrapper(request));
+        var headers = new HeaderDictionary();
+        _mockRequestHeaders.Setup(m => m.Headers).Returns(headers);
+
+        // Act
+        var result = factory.Create();
+
+        // Assert
+        result.Forwarded.ShouldBe(request.Host.ToString(), nameof(ForwardedHost.Forwarded));
+        result.Host.ShouldBe(request.Host.Host, nameof(ForwardedHost.Host));
+        result.Port.ShouldBe(request.Host.Port.Value, nameof(ForwardedHost.Port));
         _mockRepository.VerifyAll();
     }
 
@@ -127,6 +153,8 @@ public class ForwardedHostFactoryTests
         _mockRepository.VerifyAll();
     }
 
+    /// <summary>Make sure this works if there is not headers.</summary>
+    /// <remarks>Is it even possible to have a missing a Host header?</remarks>
     [TestMethod]
     public void ForwardedHostFactory_Create_HostHeaderMissing_UsesRequestUrl()
     {
@@ -138,8 +166,6 @@ public class ForwardedHostFactoryTests
         var port = 8080;
         var original = $"{host}:{port}";
         var url = $"https://{original}/some/path?a=b";
-        _mockHostSettings.Setup(m => m.AltXForwardedHost).Returns("X1-Forwarded-host");
-        _mockHostSettings.Setup(m => m.AltXForwardedProto).Returns("X1-Forwarded-Proto");
         _mockHttpRequest.Setup(m => m.GetDisplayUrl()).Returns(url);
 
         // Act

@@ -30,7 +30,7 @@ public class ForwardedHostFactory : IForwardedHostFactory
     public IForwardedHost Create()
     {
         var urlParts = _httpRequest.GetDisplayUrl().GetUrlParts();
-        if (_requestHeaders.Headers != null)
+        if (_requestHeaders.Headers != null && _requestHeaders.Headers.Count > 0)
         {
             if (_requestHeaders.Headers.TryGetValue(_hostConfiguration.AltXForwardedHost, out StringValues forwardedHostValues)
                 || _requestHeaders.Headers.TryGetValue(Constants.XForwardedHost, out forwardedHostValues))
