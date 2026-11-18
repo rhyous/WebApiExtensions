@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net80</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
@@ -21,10 +21,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <!-- ASP.NET Core ships in the shared framework on net8.0+. This replaces the legacy
+         Microsoft.AspNetCore.Http 2.x packages (and their vulnerable WebUtilities 2.3.0 dependency). -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
 
   <!-- NuGet Package -->
   <ItemGroup>

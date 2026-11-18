@@ -18,15 +18,27 @@ on:
       - '**/docs/**'
       - '**/NuGet.Config'
       - '.gitignore'
-       
+
+  # Builds and tests pull requests too. Publishing to NuGet only happens on a push to main.
+  pull_request:
+    branches: [ "main" ]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
 env:
-  VERSION_PREFIX: '1.0' # The version prefix. Use SemVer to know when to change this.
+  VERSION_PREFIX: '2.0' # The version prefix. Use SemVer to know when to change this.
   COMMIT_HASH: ${{ github.event.pull_request.head.sha || github.sha }}
-  dotnet-version: '9.0.x'
+  dotnet-version: |
+    8.0.x
+    9.0.x
+    10.0.x
   
+# The repository default for GITHUB_TOKEN is read-only; the coverage step comments on pull requests.
+permissions:
+  contents: read
+  pull-requests: write
+
 # Ensure only one run per branch/PR at a time, cancelling the old one.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
