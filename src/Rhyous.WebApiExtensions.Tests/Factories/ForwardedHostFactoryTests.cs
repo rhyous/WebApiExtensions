@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Primitives;
 using Moq;
 using Rhyous.WebApiExtensions.Factories;
@@ -72,11 +71,9 @@ public class ForwardedHostFactoryTests
     public void ForwardedHostFactory_Create_HostHeaderExistsWithPort_ReturnsForwardedHostWithPort()
     {
         // Arrange
-        var request = new DefaultHttpRequest(new DefaultHttpContext())
-        {
-            Scheme = "https",
-            Host = new HostString("some.domain.tld:5111")
-        };
+        var request = new DefaultHttpContext().Request;
+        request.Scheme = "https";
+        request.Host = new HostString("some.domain.tld:5111");
         var factory = CreateFactory(new HttpRequestWrapper(request));
         var headers = new HeaderDictionary();
         _mockRequestHeaders.Setup(m => m.Headers).Returns(headers);

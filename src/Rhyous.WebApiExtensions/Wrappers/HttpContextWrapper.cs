@@ -29,7 +29,7 @@ public class HttpContextWrapper : IHttpContext
     public IFeatureCollection Features => _httpContext.Features;
 
     /// <inheritdoc/>
-    public IDictionary<object, object> Items { get => _httpContext.Items; set => _httpContext.Items = value; }
+    public IDictionary<object, object?> Items { get => _httpContext.Items; set => _httpContext.Items = value; }
 
     /// <inheritdoc/>
     public IHttpRequest Request => new HttpRequestWrapper(_httpContext.Request);

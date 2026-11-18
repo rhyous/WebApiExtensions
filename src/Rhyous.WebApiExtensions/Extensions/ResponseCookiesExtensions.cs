@@ -11,7 +11,7 @@ namespace Rhyous.WebApiExtensions.Extensions
         /// <param name="cookie">The Cookie model.</param>
         public static void Append(this IResponseCookies responseCookies, Cookie cookie)
         {
-            responseCookies.Append(cookie.Key, cookie.Value, cookie.Options);
+            responseCookies.Append(cookie.Key, cookie.Value, cookie.Options ?? new CookieOptions());
         }
     }
 }

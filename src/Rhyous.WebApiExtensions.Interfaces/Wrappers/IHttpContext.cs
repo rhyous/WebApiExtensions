@@ -17,7 +17,7 @@ public interface IHttpContext
     IFeatureCollection Features { get; }
 
     /// <summary>A key/value collection that can be used to share data within the scope of this request.</summary>
-    IDictionary<object, object> Items { get; set; }
+    IDictionary<object, object?> Items { get; set; }
 
     /// <summary>A wrapped <see cref="HttpRequest"/> object as an <see cref="IHttpRequest"/> for this request.</summary>
     IHttpRequest Request { get; }

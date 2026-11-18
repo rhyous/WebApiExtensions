@@ -17,7 +17,7 @@ public class WebApiExtensionsModuleTests
 {
     private MockRepository _mockRepository;
 
-    private static Mock<IHttpContextAccessor> _mockHttpContextAccessor;
+    private Mock<IHttpContextAccessor> _mockHttpContextAccessor;
 
     private IServiceCollection _services;
     private IServiceProvider _serviceProvider;

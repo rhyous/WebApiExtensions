@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Moq;
 using Rhyous.Collections;
 using Rhyous.WebApiExtensions.Extensions;
@@ -24,14 +23,15 @@ namespace Rhyous.WebApiExtensions.Tests.Extensions
         {
             // Arrange
 
-            IResponseCookies responseCookies = new ResponseCookies(new HeaderDictionary(), null);
+            var httpContext = new DefaultHttpContext();
+            IResponseCookies responseCookies = httpContext.Response.Cookies;
             Cookie cookie = new Cookie { Key = "Key1", Value = "value1", Options = new CookieOptions { } };
 
             // Act
             responseCookies.Append(cookie);
 
             // Assert
-            var headers = responseCookies.GetPropertyValue("Headers") as HeaderDictionary;
+            var headers = httpContext.Response.Headers;
             Assert.AreEqual(1, headers.Count);
             _mockRepository.VerifyAll();
         }
