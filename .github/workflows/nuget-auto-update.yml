@@ -37,12 +37,14 @@ jobs:
         working-directory: src
 
     steps:
-      - uses: actions/checkout@v4
+      # actions/checkout v4 (v7.0.1)
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       # The projects multi-target net8.0, net9.0 and net10.0, so all three runtimes are needed to run the
       # tests. The newest SDK is also the one that runs dotnet-outdated.
+      # actions/setup-dotnet v4
       - name: Setup .NET SDKs
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
         with:
           dotnet-version: |
             8.0.x
@@ -50,7 +52,7 @@ jobs:
             10.0.x
 
       - name: Install dotnet-outdated tool
-        run: dotnet tool install --global dotnet-outdated-tool
+        run: dotnet tool install --global dotnet-outdated-tool --version 4.9.0
 
       - name: Add .NET global tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
@@ -80,14 +82,13 @@ jobs:
           --no-build \
           --configuration Release \
           --verbosity normal \
-          --filter "TestCategory!=SkipCI" \
-          --collect:"XPlat Code Coverage" \
-          --results-directory "$RUNNER_TEMP/coverage"
+          --filter "TestCategory!=SkipCI"
 
       # Commit & push changes (nothing happens if no package changed)
+      # peter-evans/create-pull-request v8.1.3
       - name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1
         with:
           token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           commit-message: "Update NuGet dependencies"

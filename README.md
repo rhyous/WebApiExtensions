@@ -1,6 +1,12 @@
 # WebApiExtensions
 A project to store common extensions to WebApi projects
 
+## Requirements
+- .NET 8.0, 9.0, or 10.0
+- ASP.NET Core shared framework (`Microsoft.AspNetCore.App`)
+  - Install the ASP.NET Core runtime on the target machine
+  - The packages target `net8.0`, `net9.0`, and `net10.0` and require the ASP.NET Core runtime
+
 
 ## Dependency Injection Modules
 
