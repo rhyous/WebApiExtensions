@@ -7,6 +7,9 @@ A project to store common extensions to WebApi projects
   - Install the ASP.NET Core runtime on the target machine
   - The packages target `net8.0`, `net9.0`, and `net10.0` and require the ASP.NET Core runtime
 
+## Publishing
+NuGet packages are automatically published to nuget.org on every push to `main` using [Trusted Publishing (OIDC)](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing). No API key is stored in GitHub secrets. The workflow requires a `NUGET_USER` secret containing the nuget.org profile name.
+
 
 ## Dependency Injection Modules
 
